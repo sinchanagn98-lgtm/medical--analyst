@@ -1,1 +1,54 @@
+from PIL import Image, ImageDraw, ImageFont
 
+# Create Image
+width = 1400
+height = 400
+
+image = Image.new("RGB", (width, height), "#0F172A")
+
+draw = ImageDraw.Draw(image)
+
+# Title
+title = "Medical Equipment Analytics"
+
+# Subtitle
+subtitle = "Smart Healthcare Maintenance & Failure Prediction System"
+
+# Fonts
+try:
+    title_font = ImageFont.truetype("arial.ttf", 60)
+    subtitle_font = ImageFont.truetype("arial.ttf", 30)
+except:
+    title_font = ImageFont.load_default()
+    subtitle_font = ImageFont.load_default()
+
+# Draw Shapes
+draw.rounded_rectangle(
+    [(40, 40), (1360, 360)],
+    radius=30,
+    fill="#1E293B"
+)
+
+# Decorative Circles
+draw.ellipse((80, 80, 180, 180), fill="#0EA5E9")
+draw.ellipse((1200, 220, 1300, 320), fill="#38BDF8")
+
+# Draw Text
+draw.text(
+    (180, 120),
+    title,
+    font=title_font,
+    fill="white"
+)
+
+draw.text(
+    (185, 220),
+    subtitle,
+    font=subtitle_font,
+    fill="#CBD5E1"
+)
+
+# Save Banner
+image.save("assets/banner.png")
+
+print("Banner Created Successfully!")
