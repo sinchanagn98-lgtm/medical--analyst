@@ -1,1 +1,110 @@
+import pandas as pd
+import numpy as np
+from faker import Faker
+import random
 
+fake = Faker()
+
+# Number of records
+rows = 1000
+
+device_types = [
+    "MRI Scanner",
+    "X-Ray Machine",
+    "Ventilator",
+    "ECG Monitor",
+    "Ultrasound",
+    "CT Scanner",
+    "Infusion Pump"
+]
+
+manufacturers = [
+    "Philips",
+    "GE Healthcare",
+    "Siemens",
+    "Medtronic",
+    "Canon Medical"
+]
+
+countries = [
+    "India",
+    "USA",
+    "Germany",
+    "Japan",
+    "UK",
+    "Canada",
+    "Australia"
+]
+
+maintenance_classes = [
+    "Low Risk",
+    "Medium Risk",
+    "High Risk"
+]
+
+reports = [
+    "Routine maintenance completed successfully",
+    "Minor electrical issue detected",
+    "Cooling system malfunction",
+    "Sensor calibration required",
+    "Device performance stable",
+    "Unexpected shutdown issue",
+    "Battery replacement required",
+    "Software update completed"
+]
+
+data = []
+
+for i in range(rows):
+
+    age = random.randint(1, 15)
+
+    maintenance_cost = random.randint(1000, 50000)
+
+    downtime = round(random.uniform(1, 72), 2)
+
+    failure_count = random.randint(0, 15)
+
+    frequency = random.randint(1, 12)
+
+    # Maintenance Class Logic
+    if failure_count >= 10:
+        maintenance_class = "High Risk"
+
+    elif failure_count >= 5:
+        maintenance_class = "Medium Risk"
+
+    else:
+        maintenance_class = "Low Risk"
+
+    row = {
+        "Device_ID": f"MD-{1000+i}",
+        "Device_Type": random.choice(device_types),
+        "Manufacturer": random.choice(manufacturers),
+        "Country": random.choice(countries),
+        "Purchase_Date": fake.date_between(
+            start_date='-10y',
+            end_date='today'
+        ),
+        "Age": age,
+        "Maintenance_Cost": maintenance_cost,
+        "Downtime": downtime,
+        "Failure_Event_Count": failure_count,
+        "Maintenance_Frequency": frequency,
+        "Maintenance_Class": maintenance_class,
+        "Maintenance_Report": random.choice(reports)
+    }
+
+    data.append(row)
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Save CSV
+df.to_csv(
+    "dataset/Medical_Device_Failure_dataset.csv",
+    index=False
+)
+
+print("Dataset Created Successfully!")
+print(df.head())
