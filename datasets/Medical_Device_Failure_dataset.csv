@@ -1,110 +1,21 @@
-import pandas as pd
-import numpy as np
-from faker import Faker
-import random
-
-fake = Faker()
-
-# Number of records
-rows = 1000
-
-device_types = [
-    "MRI Scanner",
-    "X-Ray Machine",
-    "Ventilator",
-    "ECG Monitor",
-    "Ultrasound",
-    "CT Scanner",
-    "Infusion Pump"
-]
-
-manufacturers = [
-    "Philips",
-    "GE Healthcare",
-    "Siemens",
-    "Medtronic",
-    "Canon Medical"
-]
-
-countries = [
-    "India",
-    "USA",
-    "Germany",
-    "Japan",
-    "UK",
-    "Canada",
-    "Australia"
-]
-
-maintenance_classes = [
-    "Low Risk",
-    "Medium Risk",
-    "High Risk"
-]
-
-reports = [
-    "Routine maintenance completed successfully",
-    "Minor electrical issue detected",
-    "Cooling system malfunction",
-    "Sensor calibration required",
-    "Device performance stable",
-    "Unexpected shutdown issue",
-    "Battery replacement required",
-    "Software update completed"
-]
-
-data = []
-
-for i in range(rows):
-
-    age = random.randint(1, 15)
-
-    maintenance_cost = random.randint(1000, 50000)
-
-    downtime = round(random.uniform(1, 72), 2)
-
-    failure_count = random.randint(0, 15)
-
-    frequency = random.randint(1, 12)
-
-    # Maintenance Class Logic
-    if failure_count >= 10:
-        maintenance_class = "High Risk"
-
-    elif failure_count >= 5:
-        maintenance_class = "Medium Risk"
-
-    else:
-        maintenance_class = "Low Risk"
-
-    row = {
-        "Device_ID": f"MD-{1000+i}",
-        "Device_Type": random.choice(device_types),
-        "Manufacturer": random.choice(manufacturers),
-        "Country": random.choice(countries),
-        "Purchase_Date": fake.date_between(
-            start_date='-10y',
-            end_date='today'
-        ),
-        "Age": age,
-        "Maintenance_Cost": maintenance_cost,
-        "Downtime": downtime,
-        "Failure_Event_Count": failure_count,
-        "Maintenance_Frequency": frequency,
-        "Maintenance_Class": maintenance_class,
-        "Maintenance_Report": random.choice(reports)
-    }
-
-    data.append(row)
-
-# Create DataFrame
-df = pd.DataFrame(data)
-
-# Save CSV
-df.to_csv(
-    "dataset/Medical_Device_Failure_dataset.csv",
-    index=False
-)
-
-print("Dataset Created Successfully!")
-print(df.head())
+Device_ID,Device_Type,Manufacturer,Country,Purchase_Date,Age,Maintenance_Cost,Downtime,Failure_Event_Count,Maintenance_Frequency,Maintenance_Class,Maintenance_Report
+MD-1001,MRI Scanner,Philips,India,2019-05-12,5,12000,12.5,2,4,Low Risk,Routine maintenance completed successfully
+MD-1002,X-Ray Machine,GE Healthcare,USA,2018-08-20,7,18000,24.2,6,6,Medium Risk,Minor electrical issue detected
+MD-1003,Ventilator,Siemens,Germany,2020-03-15,3,9500,8.1,1,3,Low Risk,Device performance stable
+MD-1004,ECG Monitor,Medtronic,Japan,2017-11-11,9,25000,36.7,12,8,High Risk,Cooling system malfunction
+MD-1005,Ultrasound,Canon Medical,UK,2021-06-01,2,7000,5.3,0,2,Low Risk,Software update completed
+MD-1006,CT Scanner,Philips,Canada,2016-09-19,10,32000,48.5,14,10,High Risk,Unexpected shutdown issue
+MD-1007,Infusion Pump,GE Healthcare,Australia,2022-01-10,1,4500,2.5,1,1,Low Risk,Battery replacement required
+MD-1008,MRI Scanner,Siemens,India,2015-04-08,11,41000,52.3,15,11,High Risk,Sensor calibration required
+MD-1009,X-Ray Machine,Medtronic,USA,2019-12-17,4,15000,16.8,4,5,Low Risk,Minor electrical issue detected
+MD-1010,Ventilator,Canon Medical,Germany,2018-07-25,6,21000,29.4,7,7,Medium Risk,Cooling system malfunction
+MD-1011,ECG Monitor,Philips,Japan,2020-10-09,3,8000,6.7,2,3,Low Risk,Routine maintenance completed successfully
+MD-1012,Ultrasound,GE Healthcare,UK,2017-03-22,8,19500,18.9,5,6,Medium Risk,Sensor calibration required
+MD-1013,CT Scanner,Siemens,Canada,2016-05-30,10,35000,61.2,13,9,High Risk,Unexpected shutdown issue
+MD-1014,Infusion Pump,Medtronic,Australia,2021-09-14,2,5000,4.8,1,2,Low Risk,Software update completed
+MD-1015,MRI Scanner,Canon Medical,India,2014-01-05,12,47000,70.5,15,12,High Risk,Cooling system malfunction
+MD-1016,X-Ray Machine,Philips,USA,2019-06-11,5,14000,13.2,3,4,Low Risk,Device performance stable
+MD-1017,Ventilator,GE Healthcare,Germany,2018-02-18,7,22000,31.4,8,7,Medium Risk,Minor electrical issue detected
+MD-1018,ECG Monitor,Siemens,Japan,2022-04-27,1,6000,3.1,0,1,Low Risk,Routine maintenance completed successfully
+MD-1019,Ultrasound,Medtronic,UK,2017-08-09,8,17500,20.6,6,5,Medium Risk,Sensor calibration required
+MD-1020,CT Scanner,Canon Medical,Canada,2015-12-01,11,39000,58.4,14,10,High Risk,Unexpected shutdown issue
