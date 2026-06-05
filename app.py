@@ -19,6 +19,6 @@ Monitor:
 - Predictive Analytics
 """)
 
-st.image("assets/banner.png", use_container_width=True)
+st.image("assets/banner.jpg", use_container_width=True)
 
 st.success("Use the sidebar to navigate through analytics pages.")
