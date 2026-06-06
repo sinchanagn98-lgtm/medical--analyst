@@ -26,17 +26,6 @@ fig1 = px.pie(
     title="Manufacturer Distribution"
 )
 
-st.plotly_chart(fig1, use_container_width=True)
-
-# FAILURE ANALYSIS
-fig2 = px.scatter(
-    filtered,
-    x="Age",
-    y="Failure_Event_Count",
-    size="Maintenance_Cost",
-    color="Country",
-    hover_data=['Manufacturer']
-)
 
 st.plotly_chart(fig2, use_container_width=True)
 
