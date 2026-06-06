@@ -59,14 +59,58 @@ st.plotly_chart(fig2, use_container_width=True)
 
 # AGE VS DOWNTIME
 st.subheader("Age vs Downtime")
+# --------------------------------
+# CLEAN DATA FOR SCATTER PLOT
+# --------------------------------
+
+# Convert columns to numeric
+df["Failure_Event_Count"] = pd.to_numeric(
+    df["Failure_Event_Count"],
+    errors="coerce"
+)
+
+df["Downtime"] = pd.to_numeric(
+    df["Downtime"],
+    errors="coerce"
+)
+
+df["Maintenance_Cost"] = pd.to_numeric(
+    df["Maintenance_Cost"],
+    errors="coerce"
+)
+
+# Remove invalid rows
+scatter_df = df.dropna(
+    subset=[
+        "Failure_Event_Count",
+        "Downtime",
+        "Maintenance_Cost"
+    ]
+)
+
+# Remove invalid bubble sizes
+scatter_df = scatter_df[
+    scatter_df["Maintenance_Cost"] > 0
+]
+
+# --------------------------------
+# SAFE SCATTER PLOT
+# --------------------------------
 
 fig3 = px.scatter(
-    df,
-    x="Age",
+    scatter_df,
+    x="Failure_Event_Count",
     y="Downtime",
     size="Maintenance_Cost",
-    color="Failure_Event_Count",
-    hover_data=['Device_Type']
+    color="Country",
+    hover_data=["Device_Type"],
+    title="Failure Events vs Downtime"
 )
+
+st.plotly_chart(
+    fig3,
+    use_container_width=True
+)
+
 
 st.plotly_chart(fig3, use_container_width=True)
