@@ -113,5 +113,3 @@ st.plotly_chart(
     use_container_width=True
 )
 
-
-st.plotly_chart(fig3, use_container_width=True)
